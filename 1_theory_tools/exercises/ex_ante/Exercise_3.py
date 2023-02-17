@@ -22,7 +22,8 @@ def solve_consumption_grid_search(par):
         it = it+1
         V_next = sol.V.copy()
         for iw,w in enumerate(grid_W):  # enumerate automaticcaly unpack w
-                                        # Fill in  
+            grid_C = np.linspace(0.0,1.0,w)
+            V_guess = np.interp(num_C, )                            # Fill in  
                                         # Hint: For each w create a consumption grid, c, using grid_C.
                                         #       Use c to calculate V_guess using interpolation
                                         #       In order to interpolate use:  np.interp
