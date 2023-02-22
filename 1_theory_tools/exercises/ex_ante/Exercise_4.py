@@ -1,6 +1,7 @@
 # import packages used
 import numpy as np
 
+
 def solve_consumption_uncertainty(par):
      # initialize solution class
     class sol: pass
@@ -13,7 +14,7 @@ def solve_consumption_uncertainty(par):
     
     # Loop over periods
     for t in range(par.T-1, -1, -1):  #from period T-1, until period 0, backwards
-        # Maximum cake size grows as t grows due to shocks so  grid depends on t 
+        # Maximum cake size grows as t grows due to shocks so grid depends on t 
         W_max = max(par.eps)*t+par.W 
         grid_W = np.linspace(0,W_max,par.num_W) 
         sol.grid_W[:,t] = grid_W 
@@ -24,7 +25,14 @@ def solve_consumption_uncertainty(par):
             EV_next = 0
         
             if t<par.T-1:
-                
+                for s in range(par.K):
+                    # weight on the shock 
+                    weight = par.pi[s]
+                    # epsilon shock
+                    eps = par.eps[s]
+                    # expected value
+                    EV_next +=weight*np.interp(w_c+eps,sol.grid_W[:,t+1],sol.V[:,t+1])
+
                 #Fill in
                 # Hint: Loop through shocks
                 #       Interpolate value function for each shock
@@ -34,5 +42,5 @@ def solve_consumption_uncertainty(par):
             index = np.argmax(V_guess)
             sol.C[iw,t] = c[index]
             sol.V[iw,t] = np.amax(V_guess)
-        
+  
     return sol

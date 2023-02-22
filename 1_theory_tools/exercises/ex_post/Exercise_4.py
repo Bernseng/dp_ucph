@@ -1,6 +1,7 @@
 # import packages used
 import numpy as np
 
+
 def solve_consumption_uncertainty(par):
      # initialize solution class
     class sol: pass
