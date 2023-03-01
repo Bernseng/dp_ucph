@@ -1,6 +1,7 @@
 # import packages used
 import numpy as np
 
+
 def util(c,par):
     return (c**(1.0-par.rho))/(1.0-par.rho)
 
@@ -29,8 +30,10 @@ def solve_consumption_deaton(par):
                 for s in range(par.num_shocks):
                     # fill in
                     # Hint: Same procedure as in Exercise_4
-                   
-
+                    eps = par.eps[s]
+                    weight = par.eps_w[s]
+                    w_next = w_c*par.R+eps
+                    EV_next +=weight*np.interp(w_next,sol.grid_W[:,t+1],sol.V[:,t+1])
                    
                     
             V_guess = util(c,par)+par.beta*EV_next
